@@ -1,8 +1,11 @@
 package com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pedido.Pedido;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.produto.Produto;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,11 +19,10 @@ public record DadosPedido(
         String id,
         List<DadosProduto> dadosProdutos,
 
+        @NotNull @JsonSerialize(using = LocalDateTimeSerializer.class)
         LocalDateTime dataCriacaoPedido,
 
-        BigDecimal valorTotal,
-
-        @JsonInclude(NON_NULL) String qrCode) {
+        BigDecimal valorTotal) {
 
     public Pedido convertToPedido() {
         return new Pedido(
