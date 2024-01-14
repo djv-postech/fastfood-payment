@@ -1,9 +1,9 @@
-server.port: 8081
+server.port: 8083
 
 mercado:
   pago:
     client:
       url: ${MP_HOST:https://api.mercadopago.com/instore/orders/qr/seller/collectors}
       authToken: ${MP_TOKEN:Bearer TEST-4111707035331742-082310-03df9d668e959289b710b132f1f2bccd-479782134}
-      userId: ${MP_USERID:"479782134"}
+      userId: ${MP_USER_ID:"479782134"}
       externalPosId: ${MP_EXTERNAL_POS_ID:SUC001POS001}

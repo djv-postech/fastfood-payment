@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastfood-payment-deployment
+  labels:
+    app: fastfood-payment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: fastfood-payment
+      labels:
+        app: fastfood-payment
+    spec:
+      containers:
+        - name: fastfood-payment-container
+          image: soatpostech/fastfood-payment:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8083
+          env:
+            - name: MP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: fastfood-payment-secret-opaque
+                  key: MP_HOST
+
+            - name: MP_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: fastfood-payment-secret-opaque
+                  key: MP_TOKEN
+
+            - name: MP_USER_ID
+              valueFrom:
+                secretKeyRef:
+                  name: fastfood-payment-secret-opaque
+                  key: MP_USER_ID
+
+            - name: MP_EXTERNAL_POS_ID
+              valueFrom:
+                secretKeyRef:
+                  name: fastfood-payment-secret-opaque
+                  key: MP_EXTERNAL_POS_ID
+
+#          livenessProbe:
+#            httpGet:
+#              path: /actuator/health/
+#              port: 8080
+#            periodSeconds: 10
+#            failureThreshold: 3
+#            initialDelaySeconds: 30
+#          readinessProbe:
+#             httpGet:
+#               path: /actuator/health
+#               port: 8080
+#             periodSeconds: 10
+#             failureThreshold: 5
+#             initialDelaySeconds: 10
+#          resources:
+#            requests:
+#              cpu: 10m
+  selector:
+    matchLabels:
+      app: fastfood-payment
