@@ -1,9 +1,6 @@
 package com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento;
 
-
-import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosPagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosPedido;
-import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosProduto;
 import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.StatusPagamentoPedido;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pagamento.Pagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pedido.Pedido;

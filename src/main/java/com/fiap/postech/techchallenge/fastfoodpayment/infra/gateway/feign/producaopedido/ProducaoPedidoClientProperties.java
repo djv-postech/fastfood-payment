@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "producao.pedido.client")
+@ConfigurationProperties(prefix = "apis.fastfood.producao-pedido.client")
 public class ProducaoPedidoClientProperties {
   private int connectTimeout = 10000;
 
