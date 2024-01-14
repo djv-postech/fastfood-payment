@@ -2,9 +2,12 @@ package com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosPagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosPedido;
 import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosProduto;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pedido.Pedido;
+import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConfirmacaoDePagamento;
+import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConsultaDePagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.CriacaoDePagamento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,12 +21,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -35,12 +35,18 @@ public class PagamentoControllerTest {
     @Mock
     private CriacaoDePagamento criacaoDePagamento;
 
+    @Mock
+    private ConfirmacaoDePagamento confirmacaoDePagamento;
+
+    @Mock
+    private ConsultaDePagamento consultaDePagamento;
+
     private MockMvc mockMvc;
     private PagamentoController pagamentoController;
 
     @BeforeEach
     public void init() {
-        pagamentoController = new PagamentoController(criacaoDePagamento);
+        pagamentoController = new PagamentoController(criacaoDePagamento, confirmacaoDePagamento, consultaDePagamento);
         this.mockMvc = MockMvcBuilders.standaloneSetup(pagamentoController).build();
     }
 
@@ -49,9 +55,10 @@ public class PagamentoControllerTest {
     public void deveGerarQRCodeParaPagamento() throws Exception {
         //FIXME:  Criar helper
 
+
         // Dado
         DadosPedido dadosPedido = new DadosPedido("123", List.of(new DadosProduto(1, "Hamburguer", "Hamburger", new BigDecimal("10.5"), 1)), LocalDateTime.now(),
-                new BigDecimal("10.5"));
+               null, new BigDecimal("10.5"));
 
 
         // Quando

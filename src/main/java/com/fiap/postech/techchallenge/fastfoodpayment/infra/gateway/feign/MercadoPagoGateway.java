@@ -1,4 +1,4 @@
-package com.fiap.postech.techchallenge.fastfoodpayment.gateway;
+package com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign;
 
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pedido.Pedido;
 

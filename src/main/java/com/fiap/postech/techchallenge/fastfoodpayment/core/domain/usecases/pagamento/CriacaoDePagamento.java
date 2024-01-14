@@ -1,7 +1,7 @@
 package com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento;
 
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pedido.Pedido;
-import com.fiap.postech.techchallenge.fastfoodpayment.gateway.MercadoPagoGateway;
+import com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.MercadoPagoGateway;
 
 public class CriacaoDePagamento {
     private final MercadoPagoGateway mercadoPagoGateway;

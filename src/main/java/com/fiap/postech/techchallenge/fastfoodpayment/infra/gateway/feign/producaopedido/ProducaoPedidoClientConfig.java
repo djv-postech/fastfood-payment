@@ -1,4 +1,4 @@
-package com.fiap.postech.techchallenge.fastfoodpayment.gateway.feign.mercadopago;
+package com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.producaopedido;
 
 
 import feign.Request.Options;
@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class MercadoPagoClientConfig {
-  private final MercadoPagoClientProperties properties;
+public class ProducaoPedidoClientConfig {
+  private final ProducaoPedidoClientProperties properties;
 
-  @Bean("mercadoPagoClient")
+  @Bean("producaoPedidoClient")
   public Options options() {
     return new Options(properties.getConnectTimeout(), properties.getReadTimeout());
   }

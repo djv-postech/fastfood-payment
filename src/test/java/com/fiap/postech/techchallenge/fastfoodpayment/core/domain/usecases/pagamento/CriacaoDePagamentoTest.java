@@ -2,7 +2,7 @@ package com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.paga
 
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pedido.Pedido;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.produto.Produto;
-import com.fiap.postech.techchallenge.fastfoodpayment.gateway.MercadoPagoGateway;
+import com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.MercadoPagoGateway;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
