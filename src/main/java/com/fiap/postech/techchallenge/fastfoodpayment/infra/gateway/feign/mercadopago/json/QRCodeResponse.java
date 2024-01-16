@@ -3,8 +3,9 @@ package com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.merca
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-@Getter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class QRCodeResponse {
   @JsonProperty("qr_data")
   private String qrCode;
