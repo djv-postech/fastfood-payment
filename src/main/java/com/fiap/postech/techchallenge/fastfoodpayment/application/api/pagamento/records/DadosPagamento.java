@@ -20,15 +20,6 @@ public record DadosPagamento(
         LocalDateTime dataPagamento,
         StatusPagamento statusPagamento) {
 
-    public DadosPagamento(Pagamento pagamento) {
-        this(
-                pagamento.getId(),
-                pagamento.getTotalPagamento(),
-                pagamento.getTipoPagamento(),
-                pagamento.getDataEHorarioPagamento(),
-                pagamento.getStatusPagamento());
-    }
-
     public Pagamento convertToPagamento() {
         return new Pagamento(id, totalPagamento, tipoPagamento, dataPagamento, statusPagamento);
     }

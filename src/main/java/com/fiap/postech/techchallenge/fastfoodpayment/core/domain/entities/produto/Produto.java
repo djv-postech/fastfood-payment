@@ -11,10 +11,6 @@ public class Produto {
     private BigDecimal preco;
     private Integer quantidade;
 
-    public Produto(){
-
-    }
-
     public Produto(Integer id, String nome, String descricao, BigDecimal preco, Integer quantidade) {
         this.id = id;
         this.nome = nome;
@@ -23,17 +19,8 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-
-    public Integer getId() {
-        return id;
-    }
-
     public String getNome(){
         return nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
     }
 
     public BigDecimal getPreco() {
@@ -43,7 +30,5 @@ public class Produto {
     public Integer getQuantidade() {
         return quantidade;
     }
-
-
 
 }

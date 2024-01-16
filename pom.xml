@@ -95,6 +95,7 @@
                                     <excludes>
                                         <exclude>**.*Application</exclude>
                                         <exclude>**.*Configuration</exclude>
+                                        <exclude>**.*Properties</exclude>
                                     </excludes>
                                     <limits>
                                         <limit>
