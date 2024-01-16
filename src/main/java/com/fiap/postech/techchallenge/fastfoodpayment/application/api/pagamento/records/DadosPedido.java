@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 
 public record DadosPedido(
-        String id,
+        String numeroPedido,
         List<DadosProduto> produtos,
 
         @NotNull @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -25,7 +25,7 @@ public record DadosPedido(
 
     public Pedido convertToPedido() {
         return new Pedido(
-                id,
+                numeroPedido,
                buildProdutos(produtos),
                 valorTotal,
                 dataCriacaoPedido);
