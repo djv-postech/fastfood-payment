@@ -45,7 +45,6 @@ public class PagamentoController {
         return ResponseEntity.ok(qrCode);
     }
 
-    // FIXME: Ao testar os serviços, verificar a melhor forma de consultar o status do pagamento
     @Operation(summary = "Consultar status do pagamento do pedido")
     @GetMapping("/{numeroPedido}/statusPagamento")
     public ResponseEntity<StatusPagamentoPedido> verificarStatusPagamentoPedido(
