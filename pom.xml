@@ -99,6 +99,8 @@
                                         <exclude>**.*Configuration</exclude>
                                         <exclude>**.*Properties</exclude>
                                         <exclude>**.*Response</exclude>
+                                        <exclude>**.*Error</exclude>
+                                        <exclude>**.*Handler</exclude>
                                     </excludes>
                                     <limits>
                                         <limit>
