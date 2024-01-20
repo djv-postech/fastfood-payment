@@ -2,4 +2,4 @@ resources:
   - fastfood-payment-secrets.yml
   - fastfood-payment-svc.yml
   - fastfood-payment-deployment.yml
-  - fastfood-payment-deployment-vs.yml
+  #- fastfood-payment-deployment-vs.yml
