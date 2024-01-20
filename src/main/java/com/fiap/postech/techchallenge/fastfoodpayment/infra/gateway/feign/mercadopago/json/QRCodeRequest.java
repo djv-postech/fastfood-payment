@@ -2,10 +2,11 @@ package com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.merca
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Setter
 public class QRCodeRequest {
   @JsonProperty(value = "external_reference")
   private String numeroPedido;

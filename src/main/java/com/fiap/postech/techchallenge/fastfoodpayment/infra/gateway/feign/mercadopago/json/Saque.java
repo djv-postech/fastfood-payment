@@ -3,10 +3,11 @@ package com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.merca
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Setter;
 
 @AllArgsConstructor
-@Data
 public class Saque {
   @JsonProperty(value = "amount")
   private Integer valor;
+
 }

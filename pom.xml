@@ -98,7 +98,6 @@
                                         <exclude>**.*Application</exclude>
                                         <exclude>**.*Configuration</exclude>
                                         <exclude>**.*Properties</exclude>
-                                        <exclude>**.*Response</exclude>
                                     </excludes>
                                     <limits>
                                         <limit>

@@ -8,13 +8,14 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
 public class ConfirmacaoDePagamentoRequest {
   private String id;
 

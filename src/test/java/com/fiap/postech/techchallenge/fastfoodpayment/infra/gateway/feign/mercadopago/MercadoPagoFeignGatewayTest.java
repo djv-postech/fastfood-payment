@@ -52,7 +52,8 @@ public class MercadoPagoFeignGatewayTest {
     public void deveGerarQrCode() throws Exception {
         // Dado
         String qrCodeReturned = "qrCode324324234";
-        QRCodeResponse qrCodeResponse = new QRCodeResponse("qrCode324324234");
+        QRCodeResponse qrCodeResponse = new QRCodeResponse();
+        qrCodeResponse.setQrCode("qrCode324324234");
         Pedido pedido = PedidoHelper.gerarDadosPedido().convertToPedido();
         when(feignClient.gerarQRCode(any(), any(), any(), any())).thenReturn(qrCodeResponse);
 
