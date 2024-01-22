@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fiap.postech.techchallenge.fastfoodpayment.PagamentoHelper;
 import com.fiap.postech.techchallenge.fastfoodpayment.PedidoHelper;
-import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosPagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosPedido;
-import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosProduto;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pedido.Pedido;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConfirmacaoDePagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConsultaDePagamento;
@@ -21,10 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

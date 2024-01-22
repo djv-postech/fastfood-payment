@@ -2,6 +2,8 @@ package com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.paga
 
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pagamento.Pagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.ProducaoPedidoGateway;
+import org.springframework.context.annotation.Profile;
+
 
 public class ConsultaDePagamento {
 

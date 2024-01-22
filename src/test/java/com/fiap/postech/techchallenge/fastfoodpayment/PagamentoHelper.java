@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class PagamentoHelper {
 
     public static DadosPagamento gerarDadosPagamento() {
-        return new DadosPagamento("1", new BigDecimal(10), TipoPagamento.QRCODE, LocalDateTime.now(), StatusPagamento.PROCESSANDO);
+        return new DadosPagamento("1", new BigDecimal(50), TipoPagamento.QRCODE, LocalDateTime.now(), StatusPagamento.PROCESSANDO);
     }
 
     public static ConfirmacaoDePagamentoRequest gerarConfirmacaoDePagamentoRequest(){
