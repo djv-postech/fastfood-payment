@@ -6,11 +6,12 @@ Serviço responsável pelo gerenciamento de pagamentos do sistema fastfood
 - Geração de QR Code através de integração com Mercado Pago
 - Consulta de status de pagamento
 - Webhook para confirmação de pagamento
-***
-### [Api Pagamento](#Api Pagamento)
 
 <br>
-<br>
+
+### [Api Pagamento](#Api Pagamento)
+
+***
 
 #### **Gerar QR Code**
 
