@@ -7,7 +7,9 @@ Serviço responsável pelo gerenciamento de pagamentos do sistema fastfood
 - Consulta de status de pagamento
 - Webhook para confirmação de pagamento
 
+
 <br>
+
 
 ### [Api Pagamento](#Api Pagamento)
 
