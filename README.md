@@ -11,7 +11,7 @@ Serviço responsável pelo gerenciamento de pagamentos do sistema fastfood
 <br>
 
 
-### [Api Pagamento](#Api Pagamento)
+### [Api Pagamento](#Api_Pagamento)
 
 ***
 
@@ -71,3 +71,18 @@ POST pagamento/confirmacaoPagamento
 ![Fluxo confirmacao_de_pagamento](imagens/fluxo-confirmacao-de-pagamento.png)
 
 <br>
+
+### [Tecnologias](#Tecnologias)
+***
+* Java
+* Spring Boot
+* Swagger
+* Docker
+* Kubernetes
+
+<br>
+
+### [Grupo 7](#grupo-7)
+***
+* Jackson Carlos Leite Ramalho
+* Valqueline Nicácio da Silva
