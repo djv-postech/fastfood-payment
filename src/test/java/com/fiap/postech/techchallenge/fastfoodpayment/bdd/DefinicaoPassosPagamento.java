@@ -2,19 +2,16 @@ package com.fiap.postech.techchallenge.fastfoodpayment.bdd;
 
 import com.fiap.postech.techchallenge.fastfoodpayment.PagamentoHelper;
 import com.fiap.postech.techchallenge.fastfoodpayment.PedidoHelper;
-import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.PagamentoController;
 import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosPedido;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pagamento.Pagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConfirmacaoDePagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConsultaDePagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.mercadopago.json.ConfirmacaoDePagamentoRequest;
-import com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.producaopedido.ProducaoPedidoFeignClient;
 import io.cucumber.java.Before;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import io.restassured.response.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
