@@ -1,9 +1,12 @@
 name: fastfood-payment-CICD
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
-     branches:
-       - main
+    branches:
+      - main
 jobs:
   Unit-Tests:
     name: Unit Tests
@@ -114,6 +117,6 @@ jobs:
       - run: aws eks update-kubeconfig --region us-east-1 --name fastfood-management-cluster
 
       - run: kubectl apply -k k8s
-      
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main' 
 
  
