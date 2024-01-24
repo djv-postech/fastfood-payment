@@ -36,7 +36,7 @@ jobs:
         echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
 
   Sonar-Analisys:
-    name: Sonar Analize
+    name: Sonar Analyze
     needs: Unit-Tests
     runs-on: ubuntu-latest
     steps:
