@@ -45,6 +45,12 @@ spec:
                   name: fastfood-payment-secret-opaque
                   key: MP_EXTERNAL_POS_ID
 
+            - name: PRODUCAO_PEDIDO_URL
+              valueFrom:
+                secretKeyRef:
+                  name: fastfood-payment-secret-opaque
+                  key: PRODUCAO_PEDIDO_URL
+
 #          livenessProbe:
 #            httpGet:
 #              path: /actuator/health/
