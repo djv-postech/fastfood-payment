@@ -12,6 +12,7 @@ public class ConfirmacaoDePagamento {
     }
 
     public void confirmarPagamento(String numeroPedido){
+        //FIXME: enviar atualização de status para produçao mesmo?
         producaoPedidoGateway.atualizarStatusPagamento(numeroPedido, StatusPagamento.APROVADO);
     }
 }
