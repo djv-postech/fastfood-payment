@@ -19,6 +19,7 @@ public record DadosPedido(
         @NotNull @JsonSerialize(using = LocalDateTimeSerializer.class)
         LocalDateTime dataCriacaoPedido,
 
+        //FIXME: EXCLUIR
         DadosPagamento pagamento,
 
         BigDecimal valorTotal) {

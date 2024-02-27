@@ -1,17 +1,35 @@
-server.port: 8083
 spring:
-  application:
-    name: fastfood-payment-service
+  jackson.serialization.WRITE_DATES_AS_TIMESTAMPS: false
+
+server.port: 8083
+
 mercado:
   pago:
     client:
-      url: ${MP_HOST:https://api.mercadopago.com/instore/orders/qr/seller/collectors}
-      authToken: ${MP_TOKEN:Bearer TEST-4111707035331742-082310-03df9d668e959289b710b132f1f2bccd-479782134}
-      userId: ${MP_USER_ID:"479782134"}
-      externalPosId: ${MP_EXTERNAL_POS_ID:SUC001POS001}
+      url: https://api.mercadopago.com/instore/orders/qr/seller/collectors
+      authToken: Bearer TEST-4111707035331742-082310-03df9d668e959289b710b132f1f2bccd-479782134
+      userId: "479782134"
+      externalPosId: SUC001POS001
 
 apis:
   fastfood:
     producao-pedido:
       client:
-        url: ${PRODUCAO_PEDIDO_URL:localhost:8082}
+        url: localhost:8082
+
+rabbitmq:
+  connections:
+    - name: PAGAMENTO
+      addresses: localhost:5672
+      credentials:
+        username: user
+        password: password
+        virtual-host: order
+  bindings:
+    - exchange: ex.solicitacao_pagamento
+      routing-key: rk.solicitacao_pagamento
+      queue: queue.solicitacao_pagamento
+    - exchange: ex.qr_code
+      routing-key: rk.qr_code
+      queue: queue.qr_code
+
