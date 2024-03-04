@@ -3,8 +3,9 @@ package com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento
 import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosPedido;
 import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.StatusPagamentoPedido;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pagamento.Pagamento;
+import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pagamento.StatusPagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pedido.Pedido;
-import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConfirmacaoDePagamento;
+import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.AtualizacaoStatusDePagamentoMessageService;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConsultaDePagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.CriacaoDePagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.mercadopago.json.ConfirmacaoDePagamentoRequest;
@@ -21,16 +22,18 @@ public class PagamentoController {
 
     private final CriacaoDePagamento criacaoDePagamento;
 
+    private final AtualizacaoStatusDePagamentoMessageService atualizacaoStatusDePagamentoMessageService;
+
+
 
     private final ConsultaDePagamento consultaDePagamento;
 
-    private final ConfirmacaoDePagamento confirmacaoDePagamento;
 
     public PagamentoController(
-            CriacaoDePagamento criacaoDePagamento, ConfirmacaoDePagamento confirmacaoDePagamento, ConsultaDePagamento consultaDePagamento) {
+            CriacaoDePagamento criacaoDePagamento, AtualizacaoStatusDePagamentoMessageService atualizacaoStatusDePagamentoMessageService, ConsultaDePagamento consultaDePagamento) {
         this.criacaoDePagamento = criacaoDePagamento;
         this.consultaDePagamento = consultaDePagamento;
-        this.confirmacaoDePagamento = confirmacaoDePagamento;
+        this.atualizacaoStatusDePagamentoMessageService = atualizacaoStatusDePagamentoMessageService;
     }
 
     @Operation(summary = "Gerar QRCode para dadosPagamento")
@@ -58,7 +61,8 @@ public class PagamentoController {
             @RequestBody ConfirmacaoDePagamentoRequest confirmacaoDePagamentoRequest) {
         final String numeroPedido = confirmacaoDePagamentoRequest.getDadosDoPagamento().getId();
 
-        confirmacaoDePagamento.confirmarPagamento(numeroPedido);
+        atualizacaoStatusDePagamentoMessageService.atualizarPagamento(numeroPedido, StatusPagamento.APROVADO);
+
         return ResponseEntity.ok().build();
     }
 }

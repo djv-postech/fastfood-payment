@@ -1,5 +1,7 @@
 package com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento;
 
+import com.fiap.postech.techchallenge.fastfoodpayment.PedidoHelper;
+import com.fiap.postech.techchallenge.fastfoodpayment.ProdutoHelper;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pedido.Pedido;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.produto.Produto;
 import com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.MercadoPagoGateway;
@@ -29,16 +31,8 @@ class CriacaoDePagamentoTest {
     @Test
     public void dadoPedido_EntaoGerarQRCodeParaPagamento() {
         // Dado
-        Produto produto =
-                new Produto(
-                        1, "big mac", "pao, hamburguer e queijo", new BigDecimal("1"), 3);
-
         Pedido pedido =
-                new Pedido(
-                        "IdPedido",
-                        List.of(produto),
-                        BigDecimal.valueOf(30.00),
-                        LocalDateTime.now());
+                PedidoHelper.gerarDadosPedido().convertToPedido();
 
         // Quando
         criacaoDePagamento.gerarQrCodeParaPagamento(pedido);
