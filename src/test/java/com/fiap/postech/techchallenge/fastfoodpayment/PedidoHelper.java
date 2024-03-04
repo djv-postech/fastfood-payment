@@ -11,13 +11,11 @@ public class PedidoHelper {
 
 
     public static DadosPedido gerarDadosPedido() {
-        return null;
-      //  return new DadosPedido("1", List.of(ProdutoHelper.gerarDadosProduto()), LocalDateTime.now(), PagamentoHelper.gerarDadosPagamento(), BigDecimal.valueOf(50) );
+        return new DadosPedido("1", List.of(ProdutoHelper.gerarDadosProduto()), null, PagamentoHelper.gerarDadosPagamento(), LocalDateTime.now(), BigDecimal.valueOf(50), "qrCode" );
     }
 
     public static DadosPedido gerarDadosPedidoComValorInvalido() {
-        return null;
-    //    return new DadosPedido("1", List.of(ProdutoHelper.gerarDadosProduto()), LocalDateTime.now(), PagamentoHelper.gerarDadosPagamento(), BigDecimal.valueOf(1) );
+        return new DadosPedido("1", List.of(ProdutoHelper.gerarDadosProduto()), null, PagamentoHelper.gerarDadosPagamento(),LocalDateTime.now(), BigDecimal.valueOf(1), "qrCode" );
     }
 
 }

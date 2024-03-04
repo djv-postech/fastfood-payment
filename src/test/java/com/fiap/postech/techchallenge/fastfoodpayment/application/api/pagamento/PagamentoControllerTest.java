@@ -6,6 +6,7 @@ import com.fiap.postech.techchallenge.fastfoodpayment.PagamentoHelper;
 import com.fiap.postech.techchallenge.fastfoodpayment.PedidoHelper;
 import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosPedido;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pedido.Pedido;
+import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.AtualizacaoStatusDePagamentoMessageService;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConfirmacaoDePagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConsultaDePagamento;
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.CriacaoDePagamento;
@@ -38,11 +39,14 @@ public class PagamentoControllerTest {
     @Mock
     private ConfirmacaoDePagamento confirmacaoDePagamento;
 
+    @Mock
+    private AtualizacaoStatusDePagamentoMessageService atualizacaoStatusDePagamentoMessageService;
+
     private MockMvc mockMvc;
 
     @BeforeEach
     public void init() {
-        PagamentoController pagamentoController = new PagamentoController(criacaoDePagamento, confirmacaoDePagamento, consultaDePagamento);
+        PagamentoController pagamentoController = new PagamentoController(criacaoDePagamento, atualizacaoStatusDePagamentoMessageService, consultaDePagamento);
         this.mockMvc = MockMvcBuilders.standaloneSetup(pagamentoController).build();
     }
 
@@ -97,8 +101,8 @@ public class PagamentoControllerTest {
                 .andExpect(status().isOk());
 
         // Entao
-        verify(confirmacaoDePagamento, times(1))
-                .confirmarPagamento(anyString());
+        verify(atualizacaoStatusDePagamentoMessageService, times(1))
+                .atualizarPagamento(anyString(), any());
 
     }
 

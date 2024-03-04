@@ -22,10 +22,12 @@ public class PagamentoController {
 
     private final CriacaoDePagamento criacaoDePagamento;
 
+    private final AtualizacaoStatusDePagamentoMessageService atualizacaoStatusDePagamentoMessageService;
+
+
 
     private final ConsultaDePagamento consultaDePagamento;
 
-    private final AtualizacaoStatusDePagamentoMessageService atualizacaoStatusDePagamentoMessageService;
 
     public PagamentoController(
             CriacaoDePagamento criacaoDePagamento, AtualizacaoStatusDePagamentoMessageService atualizacaoStatusDePagamentoMessageService, ConsultaDePagamento consultaDePagamento) {
