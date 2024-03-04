@@ -33,14 +33,14 @@ public class PagamentoAMQPConfiguration {
 
     @Bean
     public RabbitTemplate rabbitTemplate() {
-        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory(RabbitProperties.RabbitName.USER));
+        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory(RabbitProperties.RabbitName.PAGAMENTO));
         rabbitTemplate.setMessageConverter(messageConverter());
         return rabbitTemplate;
     }
 
     @Bean
     public RabbitAdmin rabbitAdmin() {
-        return new RabbitAdmin(connectionFactory(RabbitProperties.RabbitName.USER));
+        return new RabbitAdmin(connectionFactory(RabbitProperties.RabbitName.PAGAMENTO));
     }
 
     private ConnectionFactory connectionFactory(final RabbitProperties.RabbitName rabbitName) {
@@ -60,7 +60,8 @@ public class PagamentoAMQPConfiguration {
 
     private SimpleRabbitListenerContainerFactory getFactory() {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory(RabbitProperties.RabbitName.USER));
+        factory.setConnectionFactory(connectionFactory(RabbitProperties.RabbitName.PAGAMENTO));
+        factory.setMessageConverter(messageConverter());
         return factory;
     }
 

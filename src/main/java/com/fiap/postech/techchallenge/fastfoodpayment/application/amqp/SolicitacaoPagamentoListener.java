@@ -29,30 +29,17 @@ public class SolicitacaoPagamentoListener {
     private CriacaoQrCodeMessageService criacaoQrCodeMessageService;
 
     @RabbitListener(queues = SOLICITACAO_PAGAMENTO_QUEUE)
-    public void gerarPagamento(final Message message) {
-        final String payload = new String(message.getBody(), StandardCharsets.UTF_8);
+    public void gerarPagamento(final DadosPedido dadosPedido) {
 
-        log.info("Solicitação de pagamento recebida! Payload: {}", payload);
+        log.info("Solicitação de pagamento recebida! Payload: {}", dadosPedido);
 
-        Pedido pedido = deserialize(payload).convertToPedido();
 
         try {
-            criacaoQrCodeMessageService.criacaoDePagamento(pedido);
+            criacaoQrCodeMessageService.criacaoDePagamento(dadosPedido.convertToPedido());
         }catch (MercadoPagoQRCodeException mercadoPagoQRCodeException){
             log.error("Erro ao gerar qrCode: {}", mercadoPagoQRCodeException.getMessage());
         }
 
     }
 
-    private DadosPedido deserialize(final String payload) {
-        DadosPedido userMessage = null;
-
-        try {
-            userMessage = objectMapper.readValue(payload, DadosPedido.class);
-
-        } catch (IOException e) {
-            throw new AmqpRejectAndDontRequeueException(e.getMessage(), e);
-        }
-        return userMessage;
-    }
 }

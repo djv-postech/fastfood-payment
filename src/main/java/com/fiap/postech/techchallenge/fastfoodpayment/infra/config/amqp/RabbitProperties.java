@@ -44,6 +44,6 @@ public class RabbitProperties {
     }
 
     enum RabbitName {
-        USER
+        PAGAMENTO
     }
 }

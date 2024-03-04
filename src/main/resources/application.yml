@@ -24,7 +24,7 @@ rabbitmq:
       credentials:
         username: user
         password: password
-        virtual-host: order
+        virtual-host: virtualhost
   bindings:
     - exchange: ex.solicitacao_pagamento
       routing-key: rk.solicitacao_pagamento
@@ -32,4 +32,6 @@ rabbitmq:
     - exchange: ex.qr_code
       routing-key: rk.qr_code
       queue: queue.qr_code
-
+    - exchange: ex.status_pagamento
+      routing-key: rk.queue.status_pagamento
+      queue: queue.status_pagamento
