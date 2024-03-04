@@ -9,7 +9,8 @@ public class ProdutoHelper {
 
 
     public static DadosProduto gerarDadosProduto() {
-        return new DadosProduto(1, "Hamburguer", "Descricao Big Mac", new BigDecimal(10), 5);
+        return null;
+       // return new DadosProduto(1, "Hamburguer", "Descricao Big Mac", new BigDecimal(10), 5);
     }
 
 

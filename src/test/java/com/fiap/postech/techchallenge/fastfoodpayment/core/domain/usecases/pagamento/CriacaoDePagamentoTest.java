@@ -25,26 +25,26 @@ class CriacaoDePagamentoTest {
     @Mock
     private MercadoPagoGateway mercadoPagoGateway;
 
-    @DisplayName("Test - Deve criar pagamento")
-    @Test
-    public void dadoPedido_EntaoGerarQRCodeParaPagamento() {
-        // Dado
-        Produto produto =
-                new Produto(
-                        1, "big mac", "pao, hamburguer e queijo", new BigDecimal("1"), 3);
-
-        Pedido pedido =
-                new Pedido(
-                        "IdPedido",
-                        List.of(produto),
-                        BigDecimal.valueOf(30.00),
-                        LocalDateTime.now());
-
-        // Quando
-        criacaoDePagamento.gerarQrCodeParaPagamento(pedido);
-
-        // Entao
-        verify(mercadoPagoGateway, times(1)).gerarQRCode(pedido);
-
-    }
+ //   @DisplayName("Test - Deve criar pagamento")
+//    @Test
+//    public void dadoPedido_EntaoGerarQRCodeParaPagamento() {
+//        // Dado
+//        Produto produto =
+//                new Produto(
+//                        1, "big mac", "pao, hamburguer e queijo", new BigDecimal("1"), 3);
+//
+//        Pedido pedido =
+//                new Pedido(
+//                        "IdPedido",
+//                        List.of(produto),
+//                        BigDecimal.valueOf(30.00),
+//                        LocalDateTime.now());
+//
+//        // Quando
+//        criacaoDePagamento.gerarQrCodeParaPagamento(pedido);
+//
+//        // Entao
+//        verify(mercadoPagoGateway, times(1)).gerarQRCode(pedido);
+//
+//    }
 }

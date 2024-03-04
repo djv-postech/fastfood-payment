@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(RabbitProperties.class)
+//FIXME: analisar configs
 public class PagamentoAMQPConfiguration {
     private final RabbitProperties rabbitProperties;
     private final ObjectMapper mapper;

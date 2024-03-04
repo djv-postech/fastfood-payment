@@ -1,10 +1,9 @@
 package com.fiap.postech.techchallenge.fastfoodpayment.application.config.beans;
 
-import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConfirmacaoDePagamento;
-import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.ConsultaDePagamento;
-import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.CriacaoDePagamento;
+import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.usecases.pagamento.*;
 import com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.MercadoPagoGateway;
 import com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.ProducaoPedidoGateway;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,9 +12,12 @@ public class PagamentoBeanConfiguration {
     private final MercadoPagoGateway mercadoPagoGateway;
     private final ProducaoPedidoGateway producaoPedidoGateway;
 
-    public PagamentoBeanConfiguration(MercadoPagoGateway mercadoPagoGateway, ProducaoPedidoGateway producaoPedidoGateway) {
+    private final RabbitTemplate rabbitTemplate;
+
+    public PagamentoBeanConfiguration(MercadoPagoGateway mercadoPagoGateway, ProducaoPedidoGateway producaoPedidoGateway, RabbitTemplate rabbitTemplate) {
         this.mercadoPagoGateway = mercadoPagoGateway;
         this.producaoPedidoGateway = producaoPedidoGateway;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @Bean
@@ -32,4 +34,15 @@ public class PagamentoBeanConfiguration {
     public ConfirmacaoDePagamento confirmacaoDePagamento() {
         return new ConfirmacaoDePagamento(producaoPedidoGateway);
     }
+
+    @Bean
+    public CriacaoQrCodeMessageService criacaoQrCodeMessageService() {
+        return new CriacaoQrCodeMessageService(criacaoDePagamento(), rabbitTemplate);
+    }
+
+    @Bean
+    public AtualizacaoStatusDePagamentoMessageService atualizacaoStatusDePagamentoMessageService(){
+        return new AtualizacaoStatusDePagamentoMessageService(rabbitTemplate);
+    }
+
 }
