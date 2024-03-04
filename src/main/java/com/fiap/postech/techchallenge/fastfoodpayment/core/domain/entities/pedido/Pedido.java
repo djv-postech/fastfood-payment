@@ -28,24 +28,6 @@ public class Pedido {
             List<Produto> produtos,
             BigDecimal valorTotal,
             Pagamento pagamento,
-            String qrCode,
-            LocalDateTime dataCriacaoPedido) {
-        this.numeroPedido = numeroPedido;
-        this.cliente = cliente;
-        this.produtos = produtos;
-        this.valorTotal = valorTotal;
-        this.pagamento = pagamento;
-        this.qrCode = qrCode;
-        this.dataCriacaoPedido = dataCriacaoPedido;
-
-    }
-
-    public Pedido(
-            String numeroPedido,
-            Cliente cliente,
-            List<Produto> produtos,
-            BigDecimal valorTotal,
-            Pagamento pagamento,
             LocalDateTime dataCriacaoPedido) {
         this.numeroPedido = numeroPedido;
         this.cliente = cliente;
@@ -84,16 +66,8 @@ public class Pedido {
         return qrCode;
     }
 
-    public void setPagamento(Pagamento pagamento) {
-        this.pagamento = pagamento;
-    }
-
     public void setQrCode(String qrCode) {
         this.qrCode = qrCode;
-    }
-
-    public void setNumeroPedido(String numeroPedido) {
-        this.numeroPedido = numeroPedido;
     }
 
 }

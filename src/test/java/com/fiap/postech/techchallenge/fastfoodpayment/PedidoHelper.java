@@ -1,6 +1,7 @@
 package com.fiap.postech.techchallenge.fastfoodpayment;
 
 
+import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosCliente;
 import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.records.DadosPedido;
 
 import java.math.BigDecimal;
@@ -15,7 +16,7 @@ public class PedidoHelper {
     }
 
     public static DadosPedido gerarDadosPedidoComValorInvalido() {
-        return new DadosPedido("1", List.of(ProdutoHelper.gerarDadosProduto()), null, PagamentoHelper.gerarDadosPagamento(),LocalDateTime.now(), BigDecimal.valueOf(1), "qrCode" );
+        return new DadosPedido("1", List.of(ProdutoHelper.gerarDadosProduto()), new DadosCliente("Cliente", "123.456.789-01", "email@email.com"), PagamentoHelper.gerarDadosPagamento(),LocalDateTime.now(), BigDecimal.valueOf(1), "qrCode" );
     }
 
 }

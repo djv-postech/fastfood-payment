@@ -53,7 +53,7 @@ public class SolicitacaoPagamentoListenerTest {
         verify(criacaoQrCodeMessageService, times(1)).criacaoDePagamento(any(Pedido.class));
     }
 
-    @DisplayName("Test - Deve criar pagamento")
+    @DisplayName("Test - Deve logar erro quando exceção é lançada na integração com mercado pago")
     @Test
     public void deveGerarMensagemDeErroQuandoIntegracaoMercadoPagaFalha() throws Exception {
         // Dado

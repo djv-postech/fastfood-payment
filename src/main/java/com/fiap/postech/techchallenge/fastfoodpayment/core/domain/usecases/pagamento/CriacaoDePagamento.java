@@ -11,9 +11,7 @@ public class CriacaoDePagamento {
     }
 
     public String gerarQrCodeParaPagamento(Pedido pedido) {
-        String qrCode = mercadoPagoGateway.gerarQRCode(pedido);
-
-        return qrCode;
+        return mercadoPagoGateway.gerarQRCode(pedido);
     }
 
 }

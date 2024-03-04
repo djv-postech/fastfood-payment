@@ -33,13 +33,11 @@ public class SolicitacaoPagamentoListener {
 
         log.info("Solicitação de pagamento recebida! Payload: {}", dadosPedido);
 
-
         try {
             criacaoQrCodeMessageService.criacaoDePagamento(dadosPedido.convertToPedido());
         }catch (MercadoPagoQRCodeException mercadoPagoQRCodeException){
             log.error("Erro ao gerar qrCode: {}", mercadoPagoQRCodeException.getMessage());
         }
-
     }
 
 }
