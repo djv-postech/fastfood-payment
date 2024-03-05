@@ -13,15 +13,6 @@ public class Produto {
     private Integer quantidade;
     private Categoria categoria;
 
-    public Produto(Integer id, String nome, String descricao, BigDecimal preco, Integer quantidade, Categoria categoria) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.quantidade = quantidade;
-        this.categoria = categoria;
-    }
-
     public Produto(Integer id, String nome, String descricao, Categoria categoria, BigDecimal preco, int quantidade) {
         this.id = id;
         this.nome = nome;
