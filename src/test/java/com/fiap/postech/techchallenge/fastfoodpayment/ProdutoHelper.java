@@ -14,7 +14,4 @@ public class ProdutoHelper {
         return new DadosProduto(1, "Hamburguer", "Descricao Big Mac", new BigDecimal(10), Categoria.LANCHE, 5);
     }
 
-    public static Produto gerarProduto() {
-        return new Produto(1, "Hamburguer", "BigMac", new BigDecimal(10), 1,  Categoria.LANCHE);
-    }
 }
