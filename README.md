@@ -27,6 +27,7 @@ POST /pagamento
       "id": 1,
       "nome": "Cheese Burger",
       "descricao": "Cheese Burger",
+      "categoria": "LANCHE",
       "preco": 15.5,
       "quantidade": 1
     }
