@@ -24,7 +24,6 @@ rabbitmq:
       credentials:
         username: ${RABBIT_USERNAME:user}
         password: ${RABBIT_PASSWORD:password}
-        virtual-host: virtualhost
   bindings:
     - exchange: ex.solicitacao_pagamento
       routing-key: rk.solicitacao_pagamento

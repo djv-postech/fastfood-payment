@@ -36,7 +36,6 @@ public class RabbitProperties {
     static class RabbitCredentials {
         private String username;
         private String password;
-        private String virtualHost;
     }
 
     public Optional<Binding> getQueueByName(final String queue) {
