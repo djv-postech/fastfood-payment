@@ -133,6 +133,8 @@
                                     <excludes>
                                         <exclude>**.*Application</exclude>
                                         <exclude>**.*Properties</exclude>
+                                        <exclude>**.*config*</exclude>
+                                        <exclude>**.*Config</exclude>
                                     </excludes>
                                     <limits>
                                         <limit>
