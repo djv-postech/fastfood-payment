@@ -49,7 +49,6 @@ public class PagamentoAMQPConfiguration {
         factory.setAddresses(connection.getAddresses());
         factory.setUsername(connection.getCredentials().getUsername());
         factory.setPassword(connection.getCredentials().getPassword());
-        factory.setVirtualHost(connection.getCredentials().getVirtualHost());
         return factory;
     }
 
