@@ -3,6 +3,7 @@ package com.fiap.postech.techchallenge.fastfoodpayment.infra.config.amqp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(RabbitProperties.class)
-//FIXME: analisar configs
+@Slf4j
 public class PagamentoAMQPConfiguration {
     private final RabbitProperties rabbitProperties;
     private final ObjectMapper mapper;
@@ -78,6 +79,7 @@ public class PagamentoAMQPConfiguration {
                             rabbitAdmin.declareQueue(queue);
                             rabbitAdmin.declareExchange(exchange);
                             rabbitAdmin.declareBinding(rabbitBinding);
+                            log.info("Fila {} criada com sucesso!", queue);
                         });
     }
 
