@@ -6,10 +6,10 @@ server.port: 8083
 mercado:
   pago:
     client:
-      url: https://api.mercadopago.com/instore/orders/qr/seller/collectors
-      authToken: Bearer TEST-4111707035331742-082310-03df9d668e959289b710b132f1f2bccd-479782134
-      userId: "479782134"
-      externalPosId: SUC001POS001
+      url: ${MP_HOST:https://api.mercadopago.com/instore/orders/qr/seller/collectors}
+      authToken: ${MP_TOKEN:Bearer TEST-4111707035331742-082310-03df9d668e959289b710b132f1f2bccd-479782134}
+      userId: ${MP_USER_ID:479782134}
+      externalPosId: ${MP_EXTERNAL_POS_ID:SUC001POS001}
 
 apis:
   fastfood:
@@ -20,10 +20,10 @@ apis:
 rabbitmq:
   connections:
     - name: PAGAMENTO
-      addresses: localhost:5672
+      addresses: ${RABBIT_HOST}:5672
       credentials:
-        username: user
-        password: password
+        username: ${RABBIT_USERNAME:user}
+        password: ${RABBIT_PASSWORD:password}
         virtual-host: virtualhost
   bindings:
     - exchange: ex.solicitacao_pagamento
