@@ -5,12 +5,13 @@ import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pedid
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+import static com.fiap.postech.techchallenge.fastfoodpayment.infra.config.amqp.PagamentoAMQPConfiguration.QR_CODE_EX;
+
 
 @Slf4j
 public class CriacaoQrCodeMessageService {
 
     private final CriacaoDePagamento criacaoDePagamento;
-    public static final String QR_CODE_QUEUE = "queue.qr_code";
 
     private final RabbitTemplate rabbitTemplate;
 
@@ -24,7 +25,7 @@ public class CriacaoQrCodeMessageService {
 
         DadosPedido dadosPedido = new DadosPedido(pedido);
 
-        rabbitTemplate.convertAndSend(QR_CODE_QUEUE, dadosPedido);
+        rabbitTemplate.convertAndSend(QR_CODE_EX,"", dadosPedido);
 
         log.info("Solicitação de pagamento gerada e enviada. Payload: {}", dadosPedido);
     }
