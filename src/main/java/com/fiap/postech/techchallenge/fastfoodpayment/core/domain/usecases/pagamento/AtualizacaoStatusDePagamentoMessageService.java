@@ -4,9 +4,10 @@ import com.fiap.postech.techchallenge.fastfoodpayment.application.api.pagamento.
 import com.fiap.postech.techchallenge.fastfoodpayment.core.domain.entities.pagamento.StatusPagamento;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+import static com.fiap.postech.techchallenge.fastfoodpayment.infra.config.amqp.PagamentoAMQPConfiguration.STATUS_PAGAMENTO_EX;
+
 public class AtualizacaoStatusDePagamentoMessageService {
 
-    public static final String STATUS_PAGAMENTO = "queue.status_pagamento";
 
     private final RabbitTemplate rabbitTemplate;
 
@@ -15,7 +16,7 @@ public class AtualizacaoStatusDePagamentoMessageService {
     }
 
     public void atualizarPagamento(String numeroPedido, StatusPagamento statusPagamento) {
-        rabbitTemplate.convertAndSend(STATUS_PAGAMENTO, new DadosStatusPagamento(numeroPedido, statusPagamento));
+        rabbitTemplate.convertAndSend(STATUS_PAGAMENTO_EX, new DadosStatusPagamento(numeroPedido, statusPagamento));
     }
 
 }

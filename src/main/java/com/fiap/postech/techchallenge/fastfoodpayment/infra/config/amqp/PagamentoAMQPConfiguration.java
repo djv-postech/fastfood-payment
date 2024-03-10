@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 public class PagamentoAMQPConfiguration {
 
-
     public static final String QR_CODE_EX = "ex.qr_code";
     public static final String QR_CODE_QUEUE = "queue.qr_code";
     public static final String QR_CODE_QUEUE_DLX = "dlx.qr_code";
@@ -31,6 +30,11 @@ public class PagamentoAMQPConfiguration {
     public static final String SOLICITACAO_PAGAMENTO_DLX = "dlx.solicitacao_pagamento";
 
     public static final String SOLICITACAO_PAGAMENTO_DLQ = "dlq.solicitacao_pagamento";
+
+    public static final String STATUS_PAGAMENTO_EX = "ex.status_pagamento";
+    public static final String STATUS_PAGAMENTO_QUEUE = "queue.status_pagamento";
+    public static final String STATUS_PAGAMENTO_DLX = "dlx.status_pagamento";
+    public static final String STATUS_PAGAMENTO_DLQ = "dlq.status_pagamento";
 
     @Bean
     public RabbitAdmin criarAdminConfig(ConnectionFactory connectionFactory){
@@ -71,6 +75,13 @@ public class PagamentoAMQPConfiguration {
     }
 
     @Bean
+    public Queue statusPagamentoQueue(){
+        return QueueBuilder.nonDurable(STATUS_PAGAMENTO_QUEUE)
+                .deadLetterExchange(STATUS_PAGAMENTO_DLX)
+                .build();
+    }
+
+    @Bean
     public FanoutExchange qrCodeExchange(){
         return new FanoutExchange(QR_CODE_EX);
     }
@@ -81,8 +92,19 @@ public class PagamentoAMQPConfiguration {
     }
 
     @Bean
+    public FanoutExchange statusPagamentoExchange(){
+        return new FanoutExchange(STATUS_PAGAMENTO_EX);
+    }
+
+    @Bean
     public Binding qrCodeBinding(){
         return BindingBuilder.bind(qrCodeQueue()).to(qrCodeExchange());
+
+    }
+
+    @Bean
+    public Binding statusPagamentoBinding(){
+        return BindingBuilder.bind(statusPagamentoQueue()).to(statusPagamentoExchange());
 
     }
 
@@ -95,6 +117,11 @@ public class PagamentoAMQPConfiguration {
     @Bean
     public FanoutExchange qrCodeDLX(){
         return new FanoutExchange(QR_CODE_QUEUE_DLX);
+    }
+
+    @Bean
+    public FanoutExchange statusPagamentoDLX(){
+        return new FanoutExchange(STATUS_PAGAMENTO_DLX);
     }
 
     @Bean
@@ -115,6 +142,13 @@ public class PagamentoAMQPConfiguration {
     }
 
     @Bean
+    public Queue statusPagamentoDLQ(){
+        return QueueBuilder.nonDurable(STATUS_PAGAMENTO_DLQ)
+                .build();
+    }
+
+
+    @Bean
     public Binding qrCodeDLXDLQBinding(){
         return BindingBuilder.bind(qrCodeDLQ()).to(qrCodeDLX());
 
@@ -123,7 +157,11 @@ public class PagamentoAMQPConfiguration {
     @Bean
     public Binding solicitacaoPagamentoDLXDLQBinding(){
         return BindingBuilder.bind(solicitacaoPagamentoDLQ()).to(solicitacaPagamentoDLX());
+    }
 
+    @Bean
+    public Binding statusPagamentoDLXDLQBinding(){
+        return BindingBuilder.bind(statusPagamentoDLQ()).to(statusPagamentoDLX());
     }
 
 }
