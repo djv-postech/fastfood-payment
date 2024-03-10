@@ -36,11 +36,12 @@ public  class AtualizacaoStatusDePagamentoMessageServiceTest {
     public void deveAtualizarStatusDePagamento() throws Exception {
         // Dado
         String numeroPedido = UUID.randomUUID().toString();
+        String acao = "CONFIRMAR";
         StatusPagamento statusPagamento = StatusPagamento.APROVADO;
         DadosStatusPagamento dadosStatusPagamento = new DadosStatusPagamento(numeroPedido, statusPagamento);
 
         // Quando
-        atualizacaoStatusDePagamentoMessageService.atualizarPagamento(numeroPedido, statusPagamento);
+        atualizacaoStatusDePagamentoMessageService.atualizarPagamento(numeroPedido, acao);
 
         // Entao
         verify(rabbitTemplate, times(1)).convertAndSend(STATUS_PAGAMENTO_EX, "",dadosStatusPagamento);

@@ -10,6 +10,7 @@ import static com.fiap.postech.techchallenge.fastfoodpayment.infra.config.amqp.P
 @Slf4j
 public class AtualizacaoStatusDePagamentoMessageService {
 
+    private final static String CONFIRMAR = "CONFIRMAR";
 
     private final RabbitTemplate rabbitTemplate;
 
@@ -17,7 +18,9 @@ public class AtualizacaoStatusDePagamentoMessageService {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void atualizarPagamento(String numeroPedido, StatusPagamento statusPagamento) {
+    public void atualizarPagamento(String numeroPedido, String acao ) {
+        StatusPagamento statusPagamento = acao.equalsIgnoreCase(CONFIRMAR) ? StatusPagamento.APROVADO : StatusPagamento.CANCELADO;
+
         DadosStatusPagamento dadosStatusPagamento = new DadosStatusPagamento(numeroPedido, statusPagamento);
 
         rabbitTemplate.convertAndSend(STATUS_PAGAMENTO_EX, "", dadosStatusPagamento);
