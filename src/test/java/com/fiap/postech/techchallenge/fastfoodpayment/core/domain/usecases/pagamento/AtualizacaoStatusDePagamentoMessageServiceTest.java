@@ -43,6 +43,6 @@ public  class AtualizacaoStatusDePagamentoMessageServiceTest {
         atualizacaoStatusDePagamentoMessageService.atualizarPagamento(numeroPedido, statusPagamento);
 
         // Entao
-        verify(rabbitTemplate, times(1)).convertAndSend(STATUS_PAGAMENTO_EX, dadosStatusPagamento);
+        verify(rabbitTemplate, times(1)).convertAndSend(STATUS_PAGAMENTO_EX, "",dadosStatusPagamento);
     }
 }
