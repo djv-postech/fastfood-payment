@@ -42,7 +42,7 @@ public class CriacaoQrCodeMessageServiceTest {
         criacaoQrCodeMessageService.criacaoDePagamento(dadosPedido.convertToPedido());
 
         // Entao
-        verify(rabbitTemplate, times(1)).convertAndSend(anyString(), any(DadosPedido.class));
+        verify(rabbitTemplate, times(1)).convertAndSend(anyString(), anyString(), any(DadosPedido.class));
     }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.UUID;
 
+import static com.fiap.postech.techchallenge.fastfoodpayment.infra.config.amqp.PagamentoAMQPConfiguration.STATUS_PAGAMENTO_EX;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -35,14 +36,14 @@ public  class AtualizacaoStatusDePagamentoMessageServiceTest {
     public void deveAtualizarStatusDePagamento() throws Exception {
         // Dado
         String numeroPedido = UUID.randomUUID().toString();
+        String acao = "CONFIRMAR";
         StatusPagamento statusPagamento = StatusPagamento.APROVADO;
         DadosStatusPagamento dadosStatusPagamento = new DadosStatusPagamento(numeroPedido, statusPagamento);
-        final String STATUS_PAGAMENTO_QUEUE = "queue.status_pagamento";
 
         // Quando
-        atualizacaoStatusDePagamentoMessageService.atualizarPagamento(numeroPedido, statusPagamento);
+        atualizacaoStatusDePagamentoMessageService.atualizarPagamento(numeroPedido, acao);
 
         // Entao
-        verify(rabbitTemplate, times(1)).convertAndSend(STATUS_PAGAMENTO_QUEUE, dadosStatusPagamento);
+        verify(rabbitTemplate, times(1)).convertAndSend(STATUS_PAGAMENTO_EX, "",dadosStatusPagamento);
     }
 }

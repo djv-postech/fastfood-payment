@@ -81,7 +81,6 @@ POST pagamento/confirmacaoPagamento
 * Kubernetes
 
 <br>
-
 ### [Grupo 7](#grupo-7)
 ***
 * Jackson Carlos Leite Ramalho

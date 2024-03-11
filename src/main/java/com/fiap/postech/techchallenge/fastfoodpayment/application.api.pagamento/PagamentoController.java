@@ -61,7 +61,7 @@ public class PagamentoController {
             @RequestBody ConfirmacaoDePagamentoRequest confirmacaoDePagamentoRequest) {
         final String numeroPedido = confirmacaoDePagamentoRequest.getDadosDoPagamento().getId();
 
-        atualizacaoStatusDePagamentoMessageService.atualizarPagamento(numeroPedido, StatusPagamento.APROVADO);
+        atualizacaoStatusDePagamentoMessageService.atualizarPagamento(numeroPedido, confirmacaoDePagamentoRequest.getAcao());
 
         return ResponseEntity.ok().build();
     }

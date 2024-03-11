@@ -1,94 +1,167 @@
 package com.fiap.postech.techchallenge.fastfoodpayment.infra.config.amqp;
 
 
-import java.util.HashMap;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Exchange;
-import org.springframework.amqp.core.ExchangeBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.QueueBuilder;
-import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.amqp.support.converter.SimpleMessageConverter;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableConfigurationProperties(RabbitProperties.class)
-//FIXME: analisar configs
+@Slf4j
 public class PagamentoAMQPConfiguration {
-    private final RabbitProperties rabbitProperties;
-    private final ObjectMapper mapper;
+
+    public static final String QR_CODE_EX = "ex.qr_code";
+    public static final String QR_CODE_QUEUE = "queue.qr_code";
+    public static final String QR_CODE_QUEUE_DLX = "dlx.qr_code";
+    public static final String QR_CODE_QUEUE_DLQ = "dlq.qr_code";
+
+    public static final String SOLICITACAO_PAGAMENTO_EX = "ex.solicitacao_pagamento";
+    public static final String SOLICITACAO_PAGAMENTO_QUEUE = "queue.solicitacao_pagamento";
+
+    public static final String SOLICITACAO_PAGAMENTO_DLX = "dlx.solicitacao_pagamento";
+
+    public static final String SOLICITACAO_PAGAMENTO_DLQ = "dlq.solicitacao_pagamento";
+
+    public static final String STATUS_PAGAMENTO_EX = "ex.status_pagamento";
+    public static final String STATUS_PAGAMENTO_QUEUE = "queue.status_pagamento";
+    public static final String STATUS_PAGAMENTO_DLX = "dlx.status_pagamento";
+    public static final String STATUS_PAGAMENTO_DLQ = "dlq.status_pagamento";
 
     @Bean
-    public RabbitTemplate rabbitTemplate() {
-        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory(RabbitProperties.RabbitName.PAGAMENTO));
-        rabbitTemplate.setMessageConverter(messageConverter());
+    public RabbitAdmin criarAdminConfig(ConnectionFactory connectionFactory){
+        return new RabbitAdmin(connectionFactory);
+    }
+
+    @Bean
+    public ApplicationListener<ApplicationReadyEvent> startAdmin(RabbitAdmin rabbitAdmin){
+        return  event -> rabbitAdmin.initialize();
+    }
+
+    @Bean
+    public Jackson2JsonMessageConverter messageConverter(){
+        return new Jackson2JsonMessageConverter();
+    }
+
+    @Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, Jackson2JsonMessageConverter converter){
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(converter);
+
         return rabbitTemplate;
     }
 
-    @Bean
-    public RabbitAdmin rabbitAdmin() {
-        return new RabbitAdmin(connectionFactory(RabbitProperties.RabbitName.PAGAMENTO));
-    }
 
-    private ConnectionFactory connectionFactory(final RabbitProperties.RabbitName rabbitName) {
-        final RabbitProperties.RabbitConnection connection = rabbitProperties.getConnection(rabbitName);
-        final CachingConnectionFactory factory = new CachingConnectionFactory();
-        factory.setAddresses(connection.getAddresses());
-        factory.setUsername(connection.getCredentials().getUsername());
-        factory.setPassword(connection.getCredentials().getPassword());
-        factory.setVirtualHost(connection.getCredentials().getVirtualHost());
-        return factory;
+    @Bean
+    public Queue qrCodeQueue(){
+        return QueueBuilder.nonDurable(QR_CODE_QUEUE)
+                .deadLetterExchange(QR_CODE_QUEUE_DLX)
+                .build();
     }
 
     @Bean
-    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
-        return getFactory();
-    }
-
-    private SimpleRabbitListenerContainerFactory getFactory() {
-        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory(RabbitProperties.RabbitName.PAGAMENTO));
-        factory.setMessageConverter(messageConverter());
-        return factory;
+    public Queue solicitacaoPagamentoQueue(){
+        return QueueBuilder.nonDurable(SOLICITACAO_PAGAMENTO_QUEUE)
+                .deadLetterExchange(SOLICITACAO_PAGAMENTO_DLX)
+                .build();
     }
 
     @Bean
-    public void manageQueues() {
-        RabbitAdmin rabbitAdmin = rabbitAdmin();
-        rabbitProperties
-                .getBindings()
-                .forEach(
-                        binding -> {
-                            final Queue queue = QueueBuilder.durable(binding.getQueue()).build();
-                            final Exchange exchange =
-                                    ExchangeBuilder.topicExchange(binding.getExchange()).durable(true).build();
-                            final Binding rabbitBinding =
-                                    BindingBuilder.bind(queue)
-                                            .to(exchange)
-                                            .with(binding.getRoutingKey())
-                                            .and(new HashMap<>());
-
-                            rabbitAdmin.declareQueue(queue);
-                            rabbitAdmin.declareExchange(exchange);
-                            rabbitAdmin.declareBinding(rabbitBinding);
-                        });
+    public Queue statusPagamentoQueue(){
+        return QueueBuilder.nonDurable(STATUS_PAGAMENTO_QUEUE)
+                .deadLetterExchange(STATUS_PAGAMENTO_DLX)
+                .build();
     }
 
     @Bean
-    public MessageConverter messageConverter() {
-        return new Jackson2JsonMessageConverter(mapper);
+    public FanoutExchange qrCodeExchange(){
+        return new FanoutExchange(QR_CODE_EX);
     }
+
+    @Bean
+    public FanoutExchange solicitacaoPagamentoExchange(){
+        return new FanoutExchange(SOLICITACAO_PAGAMENTO_EX);
+    }
+
+    @Bean
+    public FanoutExchange statusPagamentoExchange(){
+        return new FanoutExchange(STATUS_PAGAMENTO_EX);
+    }
+
+    @Bean
+    public Binding qrCodeBinding(){
+        return BindingBuilder.bind(qrCodeQueue()).to(qrCodeExchange());
+
+    }
+
+    @Bean
+    public Binding statusPagamentoBinding(){
+        return BindingBuilder.bind(statusPagamentoQueue()).to(statusPagamentoExchange());
+
+    }
+
+    @Bean
+    public Binding solicitacaoPagamentoBinding(){
+        return BindingBuilder.bind(solicitacaoPagamentoQueue()).to(solicitacaoPagamentoExchange());
+
+    }
+
+    @Bean
+    public FanoutExchange qrCodeDLX(){
+        return new FanoutExchange(QR_CODE_QUEUE_DLX);
+    }
+
+    @Bean
+    public FanoutExchange statusPagamentoDLX(){
+        return new FanoutExchange(STATUS_PAGAMENTO_DLX);
+    }
+
+    @Bean
+    public FanoutExchange solicitacaPagamentoDLX(){
+        return new FanoutExchange(SOLICITACAO_PAGAMENTO_DLX);
+    }
+
+    @Bean
+    public Queue qrCodeDLQ(){
+        return QueueBuilder.nonDurable(QR_CODE_QUEUE_DLQ)
+                .build();
+    }
+
+    @Bean
+    public Queue solicitacaoPagamentoDLQ(){
+        return QueueBuilder.nonDurable(SOLICITACAO_PAGAMENTO_DLQ)
+                .build();
+    }
+
+    @Bean
+    public Queue statusPagamentoDLQ(){
+        return QueueBuilder.nonDurable(STATUS_PAGAMENTO_DLQ)
+                .build();
+    }
+
+
+    @Bean
+    public Binding qrCodeDLXDLQBinding(){
+        return BindingBuilder.bind(qrCodeDLQ()).to(qrCodeDLX());
+
+    }
+
+    @Bean
+    public Binding solicitacaoPagamentoDLXDLQBinding(){
+        return BindingBuilder.bind(solicitacaoPagamentoDLQ()).to(solicitacaPagamentoDLX());
+    }
+
+    @Bean
+    public Binding statusPagamentoDLXDLQBinding(){
+        return BindingBuilder.bind(statusPagamentoDLQ()).to(statusPagamentoDLX());
+    }
+
 }
