@@ -127,6 +127,20 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>jacoco-report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>com/fiap/postech/techchallenge/fastfoodpayment/infra/config/amqp/**</exclude>
+                                <exclude>com/fiap/postech/techchallenge/fastfoodpayment/infra/gateway/feign/**</exclude>
+                                <exclude>com/fiap/postech/techchallenge/fastfoodpayment/application/config/**</exclude>
+                                <exclude>com/fiap/postech/techchallenge/fastfoodpayment/infra/config/**</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>jacoco-check</id>
                         <goals>
                             <goal>check</goal>
