@@ -132,9 +132,10 @@
                                     <element>CLASS</element>
                                     <excludes>
                                         <exclude>**.*Application</exclude>
-                                        <exclude>**.*Properties</exclude>
-                                        <exclude>**.*config*</exclude>
-                                        <exclude>**.*Config</exclude>
+                                        <exclude>com.fiap.postech.techchallenge.fastfoodpayment.infra.config.amqp.**</exclude>
+                                        <exclude>com.fiap.postech.techchallenge.fastfoodpayment.infra.gateway.feign.**</exclude>
+                                        <exclude>com.fiap.postech.techchallenge.fastfoodpayment.application.config.**</exclude>
+                                        <exclude>com.fiap.postech.techchallenge.fastfoodpayment.infra.config.**</exclude>
                                     </excludes>
                                     <limits>
                                         <limit>
