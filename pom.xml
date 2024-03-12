@@ -20,7 +20,7 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.coverage.exclusions>
             **/config/**,
-            **/FastfoodNotificationApplication.class
+            **/FastfoodPaymentApplication.class
         </sonar.coverage.exclusions>
     </properties>
 
@@ -133,7 +133,7 @@
                             <excludes>
                                 <exclude>com/fiap/postech/techchallenge/fastfoodnotification/infra/config/amqp/**</exclude>
                                 <exclude>com/fiap/postech/techchallenge/fastfoodnotification/application/config/**</exclude>
-                                <exclude>com/fiap/postech/techchallenge/fastfoodnotification/FastfoodNotificationApplication.class</exclude>
+                                <exclude>com/fiap/postech/techchallenge/fastfoodnotification/FastfoodPaymentApplication.class</exclude>
                             </excludes>
                         </configuration>
                     </execution>
