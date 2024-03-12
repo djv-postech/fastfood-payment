@@ -18,6 +18,10 @@
         <spring-doc-version>2.0.0</spring-doc-version>
         <sonar.organization>djv-postech</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.coverage.exclusions>
+            **/config/**,
+            **/FastfoodNotificationApplication.class
+        </sonar.coverage.exclusions>
     </properties>
 
     <dependencyManagement>
