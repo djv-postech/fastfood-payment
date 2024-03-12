@@ -22,7 +22,7 @@
             ****/FastfoodPaymentApplication.java
         </sonar.exclusions>
         <sonar.coverage.exclusions>
-            **/techchallenge/fastfoodnotification/infra/config**
+            **/techchallenge/fastfoodnotification/infra/config/**
         </sonar.coverage.exclusions>
     </properties>
 
