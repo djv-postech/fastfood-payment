@@ -18,9 +18,11 @@
         <spring-doc-version>2.0.0</spring-doc-version>
         <sonar.organization>djv-postech</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.exclusions>
+            ****/FastfoodPaymentApplication.java
+        </sonar.exclusions>
         <sonar.coverage.exclusions>
-            **/config/**,
-            **/FastfoodPaymentApplication.class
+            **/techchallenge/fastfoodnotification/infra/config**
         </sonar.coverage.exclusions>
     </properties>
 
@@ -131,9 +133,9 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>com/fiap/postech/techchallenge/fastfoodnotification/infra/config/amqp/**</exclude>
-                                <exclude>com/fiap/postech/techchallenge/fastfoodnotification/application/config/**</exclude>
-                                <exclude>com/fiap/postech/techchallenge/fastfoodnotification/FastfoodPaymentApplication.class</exclude>
+                                <exclude>com/fiap/postech/techchallenge/fastfoodpayment/infra/config/amqp/**</exclude>
+                                <exclude>com/fiap/postech/techchallenge/fastfoodpayment/application/config/**</exclude>
+                                <exclude>com/fiap/postech/techchallenge/fastfoodpayment/FastfoodPaymentApplication.class</exclude>
                             </excludes>
                         </configuration>
                     </execution>
